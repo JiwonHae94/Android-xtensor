@@ -7,6 +7,7 @@
 #include <xtensor/xview.hpp>
 #include <android/log.h>
 #include <vector>
+#include "jni.h"
 
 // xadapt is required to print shapes
 #include <xtensor/xadapt.hpp>
@@ -21,7 +22,6 @@ using namespace std;
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO , LOG_TAG, __VA_ARGS__)
 #define LOGW(...) __android_log_print(ANDROID_LOG_WARN , LOG_TAG, __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR , LOG_TAG, __VA_ARGS__)
-
 
 int xtensorAddition(){
     xarray<double> arr1
@@ -160,18 +160,18 @@ Java_com_jiwon_androidxtensor_XTensor_asarray(JNIEnv *env, jobject thiz, jobject
     return NULL;
 }
 
-vector<float> ToNativeArray(JNIEnv *env, jfloatArray arr){
-    int arrSize = env->GetArrayLength(arr);
-    vector<float> out(arrSize);
-    jfloat *body = env->GetFloatArrayElements(arr, JNI_FALSE);
+void JavaFloatArrayToFloatVector(JNIEnv *env, jfloatArray arr, vector<float> *out){
+    int len = env->GetArrayLength(arr);
+    if(!len)
+        return;
+    env->GetFloatArrayRegion(arr, 0, len, out->data());
+}
 
-    for(int i = 0; i< arrSize; i++){
-        float value = body[i];
-        out[i] = value;
-    }
-
-    env->ReleaseFloatArrayElements(arr, body, 0);
-    return out;
+void JavaIntArrayToIntVector(JNIEnv *env, jintArray arr, vector<int> *out){
+    int len = env->GetArrayLength(arr);
+    if(!len)
+        return;
+    env->GetIntArrayRegion(arr, 0, len, out->data());
 }
 
 vector<size_t> ToNativeShape(JNIEnv *env, jintArray shapes){
@@ -191,10 +191,18 @@ vector<size_t> ToNativeShape(JNIEnv *env, jintArray shapes){
 
 template <class A>
 void jobjectArrayToXtensor(JNIEnv *env, jfloatArray arr, jintArray shape, A& a){
-    vector<float> jarray = ToNativeArray(env, arr);
-    vector<size_t> jshape = ToNativeShape(env, shape);
+    int arrSize = env->GetArrayLength(arr);
+    int shapeDim = env->GetArrayLength(shape);
 
-    a = adapt(jarray, jshape);
+    // get arr size
+    vector<float> out(arrSize);
+    JavaFloatArrayToFloatVector(env, arr, &out);
+
+    // get arr dimension
+    vector<int> shapeOut(shapeDim);
+    JavaIntArrayToIntVector(env, shape, &shapeOut);
+
+    a = adapt(out, shapeOut);
 }
 
 extern "C"
@@ -203,7 +211,6 @@ Java_com_jiwon_androidxtensor_XTensor_createArr(JNIEnv *env,
                                                 jobject thiz,
                                                 jfloatArray arr,
                                                 jintArray shape) {
-
 
     // find the dimension of the arr, len = Dimension
     xarray<float> result;
