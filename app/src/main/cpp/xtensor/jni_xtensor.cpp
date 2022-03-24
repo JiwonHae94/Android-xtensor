@@ -9,7 +9,7 @@
 #include <vector>
 #include "jni.h"
 #include "jni_base/jni_class.hpp"
-#include "jni_base/jni_array.hpp"
+#include "jni_base/jni_xtensor.hpp"
 
 // xadapt is required to print shapes
 #include <xtensor/xadapt.hpp>
@@ -34,18 +34,7 @@ JNIEXPORT void JNICALL
 Java_com_jiwon_xtensor_1jni_XTensor_asarray___3D_3I(JNIEnv *env, jobject thiz,
                                                     jdoubleArray jarray,
                                                     jintArray jshape) {
-    // get length of the native array
-    int len = env->GetArrayLength(jarray);
-    vector<double> array(len);
-    base::JniDoubleArrayToVector(env, jarray, &array);
-
-    // get num dimension of the shape
-    int numDimension = env->GetArrayLength(jshape);
-    vector<int> shape(numDimension);
-    base::JniIntArrayToVector(env, jshape, &shape);
-
-    // warp vector in to xarray
-    xarray<double> xarray = xt::adapt(array, shape);
+    auto xarr = j_xtensor::asarray(env, jarray, jshape);
 }
 
 extern "C"
@@ -53,18 +42,7 @@ JNIEXPORT void JNICALL
 Java_com_jiwon_xtensor_1jni_XTensor_asarray___3J_3I(JNIEnv *env, jobject thiz,
                                                     jlongArray jarray,
                                                     jintArray jshape) {
-    // get length of the native array
-    int len = env->GetArrayLength(jarray);
-    vector<long> array(len);
-    base::JniLongArrayToVector(env, jarray, &array);
-
-    // get num dimension of the shape
-    int numDimension = env->GetArrayLength(jshape);
-    vector<int> shape(numDimension);
-    base::JniIntArrayToVector(env, jshape, &shape);
-
-    // warp vector in to xarray
-    xarray<long> xarray = xt::adapt(array, shape);
+    auto xarr = j_xtensor::asarray(env, jarray, jshape);
 }
 
 extern "C"
@@ -72,18 +50,7 @@ JNIEXPORT void JNICALL
 Java_com_jiwon_xtensor_1jni_XTensor_asarray___3F_3I(JNIEnv *env, jobject thiz,
                                                     jfloatArray jarray,
                                                     jintArray jshape) {
-    // get length of the native array
-    int len = env->GetArrayLength(jarray);
-    vector<float> array(len);
-    base::JniFloatArrayToVector(env, jarray, &array);
-
-    // get num dimension of the shape
-    int numDimension = env->GetArrayLength(jshape);
-    vector<int> shape(numDimension);
-    base::JniIntArrayToVector(env, jshape, &shape);
-
-    // warp vector in to xarray
-    xarray<float> xarray = xt::adapt(array, shape);
+    auto xarr = j_xtensor::asarray(env, jarray, jshape);
 }
 
 extern "C"
@@ -91,16 +58,5 @@ JNIEXPORT void JNICALL
 Java_com_jiwon_xtensor_1jni_XTensor_asarray___3I_3I(JNIEnv *env, jobject thiz,
                                                     jintArray jarray,
                                                     jintArray jshape) {
-    // get length of the native array
-    int len = env->GetArrayLength(jarray);
-    vector<int> array(len);
-    base::JniIntArrayToVector(env, jarray, &array);
-
-    // get num dimension of the shape
-    int numDimension = env->GetArrayLength(jshape);
-    vector<int> shape(numDimension);
-    base::JniIntArrayToVector(env, jshape, &shape);
-
-    // warp vector in to xarray
-    xarray<int> xarray = xt::adapt(array, shape);
+    auto xarr = j_xtensor::asarray(env, jarray, jshape);
 }

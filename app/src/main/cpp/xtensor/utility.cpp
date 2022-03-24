@@ -5,7 +5,6 @@
 
 #include <android/asset_manager_jni.h>
 #include <android/asset_manager.h>
-#include <jni.h>
 #include <cmath>
 #include <array>
 #include <iostream>
