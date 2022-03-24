@@ -17,7 +17,7 @@ This project exemplifies the use of xtensor in Android.
 With increasing demand for on-device ML, need for multi-array/matrix operations grew significantly. However, support for such operation is not quite up to the expections.
 Some of the similar works are :
 - [multik](https://github.com/Kotlin/multik)
-- [numpy-kotlin](https://github.com/Kotlin/kotlin-numpy) [_`android not supported`_](https://github.com/Kotlin/kotlin-numpy/issues/11#issuecomment-751669356))
+- [numpy-kotlin](https://github.com/Kotlin/kotlin-numpy) [(_`android not supported`_)](https://github.com/Kotlin/kotlin-numpy/issues/11#issuecomment-751669356)
 
 ## <div align="left">Usage</div>
 ### Prerequisites
