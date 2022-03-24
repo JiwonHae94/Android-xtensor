@@ -1,4 +1,4 @@
-package com.jiwon.androidxtensor
+package com.jiwon.xtensor_jni
 
 import org.junit.Test
 
