@@ -8,10 +8,12 @@
 #include <android/log.h>
 #include <vector>
 #include "jni.h"
+#include "jni_base/jni_class.hpp"
 
 // xadapt is required to print shapes
 #include <xtensor/xadapt.hpp>
 #include <jni.h>
+#include <string>
 
 using namespace xt;
 using namespace std;
@@ -27,7 +29,6 @@ using namespace std;
 #define ASSERT_FALSE(status)    ASSERT(status, false)
 
 namespace jni_xt {
-
     template <class T>
     xt::xarray<T> asarray(vector<T> arr, vector<int> shape){
         return xt::adapt(arr, shape);
@@ -35,9 +36,23 @@ namespace jni_xt {
 }
 
 
+
 void JavaArrayToVector(JNIEnv *env, jobjectArray arr, jintArray shape){
     int len = env->GetArrayLength(arr);
-    jclass arrClass = env->GetObjectClass(arr);
+    jclass arrClass = env->GetObjectClass(env->GetObjectArrayElement(arr, 0));
+    std::string clz = JClass::getClassName(env, arrClass);
+
+    if(strcmp(clz.c_str(), typeid(int).name()) == 0){
+        LOGD("int class");
+    }
+
+    if(strcmp(clz.c_str(), typeid(double).name()) == 0){
+        LOGD("double class");
+    }
+
+    if(strcmp(clz.c_str(), typeid(float).name()) == 0){
+        LOGD("float class");
+    }
 }
 
 extern "C"

@@ -30,9 +30,11 @@ add_library(
 
 target_link_libraries(
         jni_xtensor
+
         ${log-lib}
         ${android-lib}
         ${jni_array}
+        ${jni_class}
 )
 
 
