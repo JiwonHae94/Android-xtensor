@@ -23,7 +23,7 @@ namespace base {
         int len = env->GetArrayLength(arr);
         if(!len)
             return;
-        env->GetFloatArrayRegion(arr, 0, len, out->data());
+        env->GetIntArrayRegion(arr, 0, len, out->data());
     }
 
 
@@ -31,6 +31,14 @@ namespace base {
         int len = env->GetArrayLength(arr);
         if(!len)
             return;
-        env->GetFloatArrayRegion(arr, 0, len, out->data());
+        env->GetDoubleArrayRegion(arr, 0, len, out->data());
+    }
+
+
+    void JniLongArrayToVector(JNIEnv *env, jlongArray arr, std::vector<long> *out){
+        int len = env->GetArrayLength(arr);
+        if(!len)
+            return;
+        env->GetLongArrayRegion(arr, 0, len, out->data());
     }
 }

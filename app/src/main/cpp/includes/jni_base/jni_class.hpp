@@ -8,33 +8,6 @@
 #include <cctype>
 
 namespace JClass {
-    char* JInteger = "Integer";
-    char* JDouble = "Double";
-    char* JFloat = "Float";
-
-    constexpr unsigned hash(const char* data) noexcept{
-        unsigned int hash = 0;
-        while (*data)
-        {
-            hash = 65599 * hash + data[0];
-            data++;
-        }
-        return hash ^ (hash >> 16);
-    }
-
-    const std::type_info* getDataType(std::string className){
-        switch(hash(className.c_str())){
-            case hash("Integer"):
-                return &typeid(int);
-            case hash("Double"):
-                return &typeid(double);
-            case hash("Float"):
-                return &typeid(float);
-            default:
-                return NULL;
-        }
-    }
-
 
     /**
      * JNI/C++: Get Class Name
