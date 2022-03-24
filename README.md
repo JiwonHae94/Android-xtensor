@@ -28,13 +28,13 @@ Some of the similar works are :
 [`Download xtensor package following the guideline`](https://github.com/xtensor-stack/xtensor)
 
 ### Setup
-**include xtensor package in the CMakeList.txt**
+- **include xtensor package in the CMakeList.txt**
 ```txt
 include_directories( ${xtensor_dir_path} )
 ```
 
 ### Basic Use
-**convert native arrays into xarray**
+- **convert native arrays into xarray**
 ```c++
 xt::xarray<int> asarray(JNIEnv *env, jintArray jarray, jintArray jshape) {
     // get length of the native array
@@ -54,7 +54,8 @@ xt::xarray<int> asarray(JNIEnv *env, jintArray jarray, jintArray jshape) {
 ```
 
 [**implement desired operations**](https://xtensor.readthedocs.io/en/latest/)
-**some of commonly used operations**
+
+- **some of commonly used operations**
 ```c++
 void xarray_arithmetic(
     xt::xarray<float> arr1, 
