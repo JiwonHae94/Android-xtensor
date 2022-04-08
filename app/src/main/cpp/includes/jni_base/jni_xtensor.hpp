@@ -13,6 +13,7 @@
 #include <vector>
 #include "jni.h"
 #include "jni_array.hpp"
+#include <xtensor/xsort.hpp>
 
 using namespace std;
 using namespace xt;
