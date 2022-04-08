@@ -1,4 +1,4 @@
-# XTensor in Android
+# xtensor in Android
 ## <div align="left">Getting Started</div>
 [`xtensor`](https://xtensor.readthedocs.io/en/latest/) is a C++ library meant for numerical analysis with multi-dimensional array expressions.
 
