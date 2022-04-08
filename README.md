@@ -13,7 +13,7 @@ Credits : [to all xtensor developers](https://github.com/xtensor-stack/xtensor)
 
 This project exemplifies the use of xtensor in Android.
 
-## <div align="left">Why XTensor</div>
+## <div align="left">Why xtensor</div>
 With increasing demand for on-device ML, need for multi-array/matrix operations grew significantly. However, support for such operation is not quite up to the expections.
 Some of the similar works are :
 - [multik](https://github.com/Kotlin/multik)
